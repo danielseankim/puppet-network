@@ -16,6 +16,10 @@ Puppet::Type.newtype(:clean_ifcfg) do
   end
 
   def eval_generate
+    # disable the removal of bond config - rest can be ignored since baremetal server does not require ifcfg cleanup anyway
+    ifcfg_bond_file = Dir["/etc/sysconfig/network-scripts/ifcfg-bond*"]
+    return [] unless ifcfg_bond_file.empty?
+    
     ifcfg_files = Dir["/etc/sysconfig/network-scripts/ifcfg-*"]
     # ignore ifcfg-lo, as well as any ifcfg file for an interface we have said to ignore
     ifcfg_files.reject! do |file|
