@@ -18,7 +18,8 @@ define network::bond::vlan (
   $ipv6peerdns = false,
   $dns1 = undef,
   $dns2 = undef,
-  $domain = undef
+  $domain = undef,
+  $type = "Bond"
 ) {
 
   $states = [ '^up$', '^down$' ]
