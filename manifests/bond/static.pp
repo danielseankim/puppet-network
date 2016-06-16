@@ -52,6 +52,7 @@ define network::bond::static (
   $dns1 = undef,
   $dns2 = undef,
   $domain = undef,
+  $type = "Bond"
 ) {
   # Validate our regular expressions
   $states = [ '^up$', '^down$' ]
@@ -89,6 +90,7 @@ define network::bond::static (
       dns1         => $dns1,
       dns2         => $dns2,
       domain       => $domain,
+      type         => $type
     }
   }
 } # define network::bond::static
