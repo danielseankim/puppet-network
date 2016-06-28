@@ -44,14 +44,14 @@ define network::if::vlan (
   }
 
   $num_configured_interfaces = count_configured_interfaces($name)
-
+  $ifcfg_filepath = ifcfg_filepath($::osfamily)
   if $num_configured_interfaces < 2 {
     file { "ifcfg-${interface}.${vlanId}}":
       ensure  => 'present',
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      path    => "/etc/sysconfig/network-scripts/ifcfg-${interface}.${vlanId}",
+      path    => "${ifcfg_filepath}ifcfg-${interface}.${vlanId}",
       content => template('network/ifcfg-eth.erb'),
     }
   }

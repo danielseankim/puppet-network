@@ -16,12 +16,13 @@ define network::pxe_cleanup (
     fail('Resource name for network::pxe_cleanup must be the MAC address of the target port/partition!')
   }
 
+  $ifcfg_filepath = ifcfg_filepath($::osfamily)
   file { "ifcfg-${interface}":
-    ensure  => 'present',
+    ensure  => 'absent',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
-    path    => "/etc/sysconfig/network-scripts/ifcfg-${interface}",
+    path    => "${ifcfg_filepath}/ifcfg-${interface}",
     content => template("network/ifcfg-eth.erb"),
     notify => Service['network']
   }
