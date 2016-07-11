@@ -1,0 +1,44 @@
+###
+### File managed by Puppet
+###
+<% if @bootproto and @bootproto != '' %>BOOTPROTO=<%= @bootproto %>
+<% end -%>
+<% if @macaddress and @macaddress != '' %>HWADDR=<%= @macaddress %>
+<% end -%>
+ONBOOT=<%= @onboot %>
+HOTPLUG=<%= @onboot %>
+<% if @type and @type != '' %>
+TYPE=<%= @type %>
+<% elsif @isethernet %>TYPE=Ethernet
+<% end -%>
+<% if @etherdevice and @etherdevice != '' %>ETHERDEVICE=<%= @etherdevice %>
+<% end -%>
+<% if @vlanId and @vlanId != '' %>VLAN=yes
+<% end -%>
+<% if @ipaddress and @ipaddress != '' %>IPADDR=<%= @ipaddress %>
+<% end -%>
+<% if @netmask and @netmask != '' %>NETMASK=<%= @netmask %>
+<% end -%>
+<% if @gateway and @gateway != '' %>GATEWAY=<%= @gateway %>
+<% end -%>
+<% if @mtu %>MTU=<%= @mtu %>
+<% end -%>
+<% if @bonding_opts %>BONDING_OPTS="<%= @bonding_opts %>"
+<% end -%>
+<% if @dhcp_hostname %>DHCP_HOSTNAME="<%= @dhcp_hostname %>"
+<% end -%>
+<% if @ethtool_opts %>ETHTOOL_OPTS="<%= @ethtool_opts %>"
+<% end -%>
+<% if !@peerdns %>PEERDNS=no
+<% else %>PEERDNS=yes
+<% if @dns1_real %>DNS1=<%= @dns1_real %>
+<% end -%>
+<% if @dns2_real %>DNS2=<%= @dns2_real %>
+<% end -%>
+<% if @domain %>DOMAIN="<%= @domain %>"
+<% end -%>
+<% end -%>
+<% if @userctl %>USERCTL=yes
+<% end -%>
+NM_CONTROLLED=no
+STARTMODE=auto

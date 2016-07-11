@@ -23,11 +23,19 @@
 # Copyright (C) 2011 Mike Arnold, unless otherwise noted.
 #
 class network {
-  # Only run on RedHat derived systems.
+  # Only run on RedHat/CentOS and SLES derived systems.
   case $::osfamily {
     'RedHat': { }
+    'Suse': {
+      case $::operatingsystemrelease {
+        /^(11|12)/: { }
+        default: {
+          fail("This network module only supports SLES 11 and 12 systems. The current machine uses ${$::operatingsystemrelease}")
+        }
+      }
+    }
     default: {
-      fail('This network module only supports RedHat-based systems.')
+      fail("This network module only supports RedHat and Suse based systems. Current machine OS family is ${$::osfamily}")
     }
   }
 
@@ -141,7 +149,7 @@ define network_if_base (
   $linkdelay       = undef,
   $check_link_down = false,
   $defroute        = undef,
-  $type            = undef
+  $type            = undef,
 ) {
   # Validate our booleans
   validate_bool($userctl)
@@ -201,13 +209,15 @@ define network_if_base (
     $iftemplate = template('network/ifcfg-eth.erb')
   }
 
+  $ifcfg_filepath = ifcfg_filepath($::osfamily)
+
   if $vlanId {
     file { "ifcfg-${interface}.${vlanId}":
       ensure  => 'present',
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      path    => "/etc/sysconfig/network-scripts/ifcfg-${interface}",
+      path    => "${ifcfg_filepath}ifcfg-${interface}.${vlanId}",
       content => $iftemplate,
       notify => Service['network'],
     }
@@ -217,7 +227,7 @@ define network_if_base (
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      path    => "/etc/sysconfig/network-scripts/ifcfg-${interface}",
+      path    => "${ifcfg_filepath}ifcfg-${interface}",
       content => $iftemplate,
       notify => Service['network'],
     }
