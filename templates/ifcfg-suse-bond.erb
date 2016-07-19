@@ -1,0 +1,10 @@
+###
+### File managed by Puppet
+###
+BOOTPROTO=none
+BONDING_MASTER=yes
+<% num = 0; @slave_devices.each do |dev| -%>
+    BONDING_SLAVE_<%= num %>=<%= dev %>
+<% num += 1; end -%>
+BONDING_MODULE_OPTS='<%= @bonding_opts %>'
+STARTMODE=auto

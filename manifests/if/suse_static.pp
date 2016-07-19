@@ -24,6 +24,7 @@ define network::if::suse_static (
   $domain = undef,
   $isethernet = true,
   $type = "",
+  $master = "NOMASTER"
 ) {
   # Validate our data
   $states = [ '^up$', '^down$' ]
@@ -62,13 +63,16 @@ define network::if::suse_static (
     $interface = $name
   }
 
-  file { "ifcfg-${interface}":
-    ensure  => 'present',
-    mode    => '0644',
-    owner   => 'root',
-    group   => 'root',
-    path    => "/etc/sysconfig/network/ifcfg-${interface}",
-    content => template('network/ifcfg-suse-eth.erb'),
-    notify => Service['network'],
+  $already_configured = $master in split($::interfaces, ',')
+  if !$already_configured {
+    file { "ifcfg-${interface}":
+      ensure  => 'present',
+      mode    => '0644',
+      owner   => 'root',
+      group   => 'root',
+      path    => "/etc/sysconfig/network/ifcfg-${interface}",
+      content => template('network/ifcfg-suse-eth.erb'),
+      notify  => Service['network'],
+    }
   }
 } # define network::if::suse_static
