@@ -1,7 +1,11 @@
+# Cleans up the PXE network by disabling the onboot
 define network::pxe_cleanup (
   $ensure,
-  $bootproto       = 'dhcp',
-  $onboot          = "no"
+  $bootproto       = "dhcp",
+  $onboot          = "no",
+  $ipaddress       = "",
+  $netmask         = "",
+  $gateway         = "",
 ) {
   $states = [ '^clean$', '^ignore$' ]
   validate_re($ensure, $states, '$ensure must be either "clean" or "ignore".')
@@ -17,8 +21,13 @@ define network::pxe_cleanup (
   }
 
   $ifcfg_filepath = ifcfg_filepath($::osfamily)
+
+  exec { "ifdown ${interface}":
+    command => "ifdown ${interface}",
+    path    => ['/usr/bin', '/usr/sbin', '/sbin'],
+  }->
   file { "ifcfg-${interface}":
-    ensure  => 'absent',
+    ensure  => 'present',
     mode    => '0644',
     owner   => 'root',
     group   => 'root',
