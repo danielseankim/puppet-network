@@ -16,12 +16,18 @@ Puppet::Type.newtype(:clean_ifcfg) do
   end
 
   def eval_generate
-    # disable the removal of bond config - rest can be ignored since baremetal server does not require ifcfg cleanup anyway
+    # Do this only for the VM's since pxe_cleanup.pp handles baremetal server's PXE cleanup
+    # Since different facter versions can return the value as a string/boolean, check for both.
+    is_virtual = Facter["is_virtual"].value.to_s
+    notice "This node is a #{Facter["virtual"].value} machine.. is_virtual = #{is_virtual}"
+    return [] unless is_virtual == "true"
+
+    # disable the removal of bond config
     osfam = Facter["osfamily"].value
     ifcfg_dir = (osfam == "RedHat") ? "/etc/sysconfig/network-scripts" : "/etc/sysconfig/network"
     ifcfg_bond_file = Dir["#{ifcfg_dir}/ifcfg-bond*"]
     return [] unless ifcfg_bond_file.empty?
-    
+
     ifcfg_files = Dir["#{ifcfg_dir}/ifcfg-*"]
     # ignore ifcfg-lo, as well as any ifcfg file for an interface we have said to ignore
     ifcfg_files.reject! do |file|
