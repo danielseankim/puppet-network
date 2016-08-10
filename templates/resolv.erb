@@ -1,0 +1,9 @@
+###
+### File managed by Puppet
+###
+<% if @domain %>search <%= @domain %>
+<% end -%>
+<% if @primary_dns %>nameserver <%= @primary_dns %>
+<% end -%>
+<% if @secondary_dns %>nameserver <%= @secondary_dns %>
+<% end -%>
