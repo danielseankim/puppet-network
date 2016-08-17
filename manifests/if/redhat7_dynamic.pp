@@ -21,7 +21,7 @@
 #
 # === Sample Usage:
 #
-#   network::if::dynamic { '11:11:11:11:11:11':
+#   network::if::redhat7_dynamic { '11:11:11:11:11:11':
 #     ensure     => 'up',
 #     macaddress => $::macaddress_eth2,
 #   }
@@ -31,14 +31,6 @@
 #     macaddress => 'fe:fe:fe:fe:fe:fe',
 #     bootproto  => 'bootp',
 #   }
-#
-# === Authors:
-#
-# Mike Arnold <mike@razorsedge.org>
-#
-# === Copyright:
-#
-# Copyright (C) 2011 Mike Arnold, unless otherwise noted.
 #
 define network::if::redhat7_dynamic (
   $ensure,

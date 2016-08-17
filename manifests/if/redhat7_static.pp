@@ -40,14 +40,6 @@
 #     ipv6gateway => '123:4567:89ab:cdef:123:4567:89ab:1' 
 #   }
 #
-# === Authors:
-#
-# Mike Arnold <mike@razorsedge.org>
-#
-# === Copyright:
-#
-# Copyright (C) 2011 Mike Arnold, unless otherwise noted.
-#
 define network::if::redhat7_static (
   $ensure,
   $ipaddress = undef,
