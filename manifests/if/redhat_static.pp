@@ -1,4 +1,4 @@
-# == Definition: network::if::redhat7_static
+# == Definition: network::if::redhat_static
 #
 # Creates a normal interface with static IP address.
 #
@@ -29,7 +29,7 @@
 #
 # === Sample Usage:
 #
-#   network::if::redhat7_static { '11:11:11:11:11:11':
+#   network::if::redhat_static { '11:11:11:11:11:11':
 #     ensure      => 'up',
 #     ipaddress   => '10.21.30.248',
 #     netmask     => '255.255.255.128',
@@ -40,7 +40,7 @@
 #     ipv6gateway => '123:4567:89ab:cdef:123:4567:89ab:1' 
 #   }
 #
-define network::if::redhat7_static (
+define network::if::redhat_static (
   $ensure,
   $ipaddress = undef,
   $netmask = undef,

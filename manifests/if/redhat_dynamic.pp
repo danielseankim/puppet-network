@@ -1,4 +1,4 @@
-# == Definition: network::if::redhat7_dynamic
+# == Definition: network::if::redhat_dynamic
 #
 # Creates a normal interface with dynamic IP information.
 #
@@ -21,18 +21,18 @@
 #
 # === Sample Usage:
 #
-#   network::if::redhat7_dynamic { '11:11:11:11:11:11':
+#   network::if::redhat_dynamic { '11:11:11:11:11:11':
 #     ensure     => 'up',
 #     macaddress => $::macaddress_eth2,
 #   }
 #
-#   network::if::redhat7_dynamic { 'eth3':
+#   network::if::redhat_dynamic { 'eth3':
 #     ensure     => 'up',
 #     macaddress => 'fe:fe:fe:fe:fe:fe',
 #     bootproto  => 'bootp',
 #   }
 #
-define network::if::redhat7_dynamic (
+define network::if::redhat_dynamic (
   $ensure,
   $macaddress      = undef,
   $bootproto       = 'dhcp',
