@@ -42,7 +42,6 @@ define network::bond::vlan (
   $interface = $name
 
   #include '::network'
-
   $already_configured = $name in split($::interfaces, ',')
 
   if !$already_configured {

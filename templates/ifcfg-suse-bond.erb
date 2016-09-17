@@ -3,8 +3,10 @@
 ###
 BOOTPROTO=none
 BONDING_MASTER=yes
+<% if @mtu %>MTU=<%= @mtu %><% end -%>
 <% num = 0; @slave_devices.each do |dev| -%>
     BONDING_SLAVE_<%= num %>=<%= dev %>
 <% num += 1; end -%>
 BONDING_MODULE_OPTS='<%= @bonding_opts %>'
 STARTMODE=auto
+BONDING_MASTER_UP_ENSLAVE=yes
