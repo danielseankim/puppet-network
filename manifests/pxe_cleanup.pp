@@ -25,7 +25,7 @@ define network::pxe_cleanup (
   exec { "ifdown ${interface}":
     command => "ifdown ${interface}",
     path    => ['/usr/bin', '/usr/sbin', '/sbin'],
-    onlyif => "test `ifconfig | grep ${interface}` -n"
+    onlyif => "test -z `ifconfig | grep ${interface}`"
   }->
   file { "ifcfg-${interface}":
     ensure  => 'present',
