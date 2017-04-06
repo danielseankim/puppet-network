@@ -146,7 +146,6 @@ define network_if_base (
   $bridge          = undef,
   $linkdelay       = undef,
   $scope           = undef,
-  $linkdelay       = undef,
   $check_link_down = false,
   $defroute        = undef,
   $type            = undef,
