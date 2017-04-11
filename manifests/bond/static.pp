@@ -37,22 +37,23 @@
 #
 define network::bond::static (
   $ensure,
-  $ipaddress = undef,
-  $netmask = undef,
-  $vlanId = undef,
-  $gateway = undef,
-  $mtu = undef,
-  $ethtool_opts = undef,
-  $bonding_opts = 'miimon=100',
-  $peerdns = false,
-  $ipv6init = false,
-  $ipv6address = undef,
-  $ipv6gateway = undef,
-  $ipv6peerdns = false,
-  $dns1 = undef,
-  $dns2 = undef,
-  $domain = undef,
-  $type = "Bond"
+  $ipaddress      = undef,
+  $netmask        = undef,
+  $vlanId         = undef,
+  $gateway        = undef,
+  $mtu            = undef,
+  $ethtool_opts   = undef,
+  $bonding_opts   = 'miimon=100',
+  $peerdns        = false,
+  $ipv6init       = false,
+  $ipv6address    = undef,
+  $ipv6gateway    = undef,
+  $ipv6peerdns    = false,
+  $dns1           = undef,
+  $dns2           = undef,
+  $domain         = undef,
+  $type           = "Bond",
+  $bonding_master = undef
 ) {
   # Validate our regular expressions
   $states = [ '^up$', '^down$' ]
@@ -72,25 +73,26 @@ define network::bond::static (
 
   if !$already_configured {
     network_if_base { $title:
-      ensure       => $ensure,
-      ipaddress    => $ipaddress,
-      netmask      => $netmask,
-      gateway      => $gateway,
-      vlanId       => $vlanId,
-      macaddress   => '',
-      bootproto    => 'none',
-      mtu          => $mtu,
-      ethtool_opts => $ethtool_opts,
-      bonding_opts => $bonding_opts,
-      peerdns      => $peerdns,
-      ipv6init     => $ipv6init,
-      ipv6address  => $ipv6address,
-      ipv6peerdns  => $ipv6peerdns,
-      ipv6gateway  => $ipv6gateway,
-      dns1         => $dns1,
-      dns2         => $dns2,
-      domain       => $domain,
-      type         => $type
+      ensure         => $ensure,
+      ipaddress      => $ipaddress,
+      netmask        => $netmask,
+      gateway        => $gateway,
+      vlanId         => $vlanId,
+      macaddress     => '',
+      bootproto      => 'none',
+      mtu            => $mtu,
+      ethtool_opts   => $ethtool_opts,
+      bonding_opts   => $bonding_opts,
+      peerdns        => $peerdns,
+      ipv6init       => $ipv6init,
+      ipv6address    => $ipv6address,
+      ipv6peerdns    => $ipv6peerdns,
+      ipv6gateway    => $ipv6gateway,
+      dns1           => $dns1,
+      dns2           => $dns2,
+      domain         => $domain,
+      type           => $type,
+      bonding_master => $bonding_master
     }
   }
 } # define network::bond::static
