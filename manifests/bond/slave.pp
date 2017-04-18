@@ -34,7 +34,8 @@
 define network::bond::slave (
   $macaddress,
   $master,
-  $ethtool_opts = undef
+  $ethtool_opts = undef,
+  $mtu = undef
 ) {
   # Validate our data
   if ! is_mac_address($macaddress) {
@@ -63,8 +64,7 @@ define network::bond::slave (
       group   => 'root',
       path    => "/etc/sysconfig/network-scripts/ifcfg-${interface}",
       content => template('network/ifcfg-bond.erb'),
-      before  => File["ifcfg-${master}"],
-      notify  => Service['network'],
+      before  => File["ifcfg-${master}"]
     }
   }
 
