@@ -98,7 +98,7 @@ define network::if::redhat_static (
 
   $num_configured_interfaces = count_configured_interfaces($name)
   if $num_configured_interfaces < 2 {
-    network_if_base { $interface:
+    network::if_base { $interface:
       ensure       => $ensure,
       ipv6init     => $ipv6init,
       ipaddress    => $ipaddress,

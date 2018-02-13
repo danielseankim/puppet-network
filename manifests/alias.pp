@@ -45,7 +45,7 @@ define network::alias (
   # Validate our booleans
   validate_bool($userctl)
 
-  network_if_base { $title:
+  network::if_base { $title:
     ensure       => $ensure,
     ipaddress    => $ipaddress,
     netmask      => $netmask,

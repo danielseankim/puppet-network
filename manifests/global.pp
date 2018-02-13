@@ -72,7 +72,7 @@ class network::global (
   $nozeroconf            = undef
 ) {
   # Validate our data
-  if $gateway {
+  if $gateway and ($gateway != '') {
     if ! is_ip_address($gateway) { fail("${gateway} is not an IP address.") }
   }
   if $ipv6gateway {

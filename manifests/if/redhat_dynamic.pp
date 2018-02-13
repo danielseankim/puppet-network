@@ -71,7 +71,7 @@ define network::if::redhat_dynamic (
   validate_bool($userctl)
   validate_bool($peerdns)
 
-  network_if_base { $interface:
+  network::if_base { $interface:
     ensure          => $ensure,
     ipaddress       => '',
     netmask         => '',
