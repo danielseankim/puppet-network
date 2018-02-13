@@ -5,11 +5,7 @@ Puppet::Type.newtype(:clean_ifcfg) do
 
   newparam(:ignore) do
     @doc = "List of interfaces that we don't want to leave ifcfg files for"
-    if Puppet.version.start_with?("4.")
-      defaultto Facter.value(:interfaces).to_s
-    else
-      defaultto Facter["interfaces"].value.to_s
-    end
+    defaultto Facter.value(:interfaces).to_s
     validate do |value|
       raise ("ignore parameter must be a comma separated string of interface names") unless value.is_a?(String)
       super(value)
@@ -57,10 +53,6 @@ Puppet::Type.newtype(:clean_ifcfg) do
   # @param key [String]
   # @return [String]
   def get_facter_value(key)
-    if Puppet.version.start_with?("4.")
-      Facter.value(key.to_sym).to_s
-    else
-      Facter[key].value.to_s
-    end
+    Facter.value(key.to_sym).to_s
   end
 end

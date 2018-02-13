@@ -94,7 +94,7 @@ define network::if::static (
 
   $num_configured_interfaces = count_configured_interfaces($name)
   if $num_configured_interfaces < 2 {
-    network_if_base { $title:
+    network::if_base { $title:
       ensure       => $ensure,
       ipv6init     => $ipv6init,
       ipaddress    => $ipaddress,

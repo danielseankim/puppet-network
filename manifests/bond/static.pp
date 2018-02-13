@@ -72,7 +72,7 @@ define network::bond::static (
   $already_configured = $title in split($::interfaces, ',')
 
   if !$already_configured {
-    network_if_base { $title:
+    network::if_base { $title:
       ensure         => $ensure,
       ipaddress      => $ipaddress,
       netmask        => $netmask,

@@ -67,7 +67,7 @@ define network::if::dynamic (
   validate_bool($userctl)
   validate_bool($peerdns)
 
-  network_if_base { $title:
+  network::if_base { $title:
     ensure          => $ensure,
     ipaddress       => '',
     netmask         => '',
