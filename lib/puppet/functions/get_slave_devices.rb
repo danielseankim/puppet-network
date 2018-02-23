@@ -1,6 +1,7 @@
 Puppet::Functions.create_function(:get_slave_devices) do
   dispatch :get_slave_devices do
     param 'String', :macaddresses
+    return_type 'Array'
   end
 
   def get_slave_devices(macaddresses)
