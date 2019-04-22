@@ -9,7 +9,7 @@ HOTPLUG=<%= @onboot %>
 <% if @type and @type != '' %>TYPE=<%= @type %>
 <% elsif @isethernet %>TYPE=Ethernet<% end -%>
 <% if @vlanId and @vlanId != '' %>VLAN=yes
-DEVICE=<%= @interface %>.<%= @vlanId %>
+DEVICE=<%= @interface.include?(@vlanId.to_s) ? @interface.split(".").first : @interface %>.<%= @vlanId %>
 <% else %>
 DEVICE=<%= @interface %>
 <% end -%>
