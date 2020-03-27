@@ -60,10 +60,4 @@ class network {
       default => undef
     }
   }
-
-  # Validate valid IP address(es) have been assigned; this affects Suse 12 VMs only!
-  check_interface { "check_interface":
-    operation => "restart_interface",
-    require => Service["network"],
-  }
 } # class network
